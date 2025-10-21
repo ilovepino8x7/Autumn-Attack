@@ -7,6 +7,9 @@ TagManager:
   - logos
   - spawn
   - PathPoint
+  - clicks
+  - cps
+  - leaves
   layers:
   - Default
   - TransparentFX
@@ -43,6 +46,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Idle
+    uniqueID: 1477631803
     locked: 0
   m_RenderingLayers:
   - Default

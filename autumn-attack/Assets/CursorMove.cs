@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CursorMove : MonoBehaviour
@@ -5,6 +6,9 @@ public class CursorMove : MonoBehaviour
     public GameObject[] path;
     private int pathnum = 0;
     public GameObject tree;
+    public logic ls;
+    public float timer = 5;
+    private int value = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,6 +16,7 @@ public class CursorMove : MonoBehaviour
         GameObject[] unordered = GameObject.FindGameObjectsWithTag("PathPoint");
         System.Array.Sort(unordered, (GameObject a, GameObject b) => GrabNum(a.name).CompareTo(GrabNum(b.name)));
         path = unordered;
+        ls = GameObject.FindWithTag("logos").GetComponent<logic>();
     }
 
     // Update is called once per frame
@@ -31,6 +36,17 @@ public class CursorMove : MonoBehaviour
         angle -= 90;
         Quaternion target = Quaternion.Euler(0, 0, angle);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, target, 200 * Time.deltaTime);
+
+        if (timer >= 5)
+        {
+            timer = 0;
+            // add upgrades adn a function to increase the value
+            ls.addClicks(value);
+        }
+        else
+        {
+            timer += Time.deltaTime;
+        }
     }
     public void moveToNext(int num)
     {
@@ -52,5 +68,6 @@ public class CursorMove : MonoBehaviour
         }
         return int.MaxValue;
     }
+
 
 }
