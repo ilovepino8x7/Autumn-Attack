@@ -8,7 +8,7 @@ public class logic : MonoBehaviour
 {
     public int clicks = 0;
     private int leaves = 0;
-    public int cps = 0;
+    public float cps = 0;
     public GameObject spawnPoint;
     public GameObject cursor;
     public GameObject tree;
@@ -49,7 +49,7 @@ public class logic : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             angle -= 90;
             Quaternion target = Quaternion.Euler(0, 0, angle);
-            leaves -= 25;
+            leaves -= mCNum;
             mCNum = (int)Math.Round(mCNum * 1.2);
             Instantiate(cursor, spawnPoint.transform.position, target);
         }

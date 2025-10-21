@@ -8,6 +8,7 @@ public class CursorMove : MonoBehaviour
     public GameObject tree;
     public logic ls;
     public float timer = 5;
+    public int spawnTime = 5;
     private int value = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,6 +18,7 @@ public class CursorMove : MonoBehaviour
         System.Array.Sort(unordered, (GameObject a, GameObject b) => GrabNum(a.name).CompareTo(GrabNum(b.name)));
         path = unordered;
         ls = GameObject.FindWithTag("logos").GetComponent<logic>();
+        ls.cps += (float)value / (float)spawnTime;
     }
 
     // Update is called once per frame
@@ -37,7 +39,7 @@ public class CursorMove : MonoBehaviour
         Quaternion target = Quaternion.Euler(0, 0, angle);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, target, 200 * Time.deltaTime);
 
-        if (timer >= 5)
+        if (timer >= spawnTime)
         {
             timer = 0;
             // add upgrades adn a function to increase the value
