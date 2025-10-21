@@ -439,6 +439,8 @@
 -analyzer:"/Applications/Unity/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"/Applications/Unity/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
 "Assets/autumnTree.cs"
+"Assets/CursorMove.cs"
+"Assets/logic.cs"
 -langversion:9.0
 /deterministic
 /optimize+

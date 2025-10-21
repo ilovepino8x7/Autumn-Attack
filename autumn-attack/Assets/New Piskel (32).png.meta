@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -56,7 +56,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -121,7 +121,7 @@ TextureImporter:
         width: 474
         height: 505
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -136,10 +136,32 @@ TextureImporter:
       weights: []
     outline: []
     customData: 
-    physicsShape: []
+    physicsShape:
+    - - {x: -246, y: 197}
+      - {x: -231, y: 23}
+      - {x: -174, y: 3}
+      - {x: -112, y: -7}
+      - {x: -49, y: 1}
+      - {x: -32, y: -43}
+      - {x: -111, y: -161}
+      - {x: -159, y: -256}
+      - {x: 59, y: -254}
+      - {x: 61, y: -233}
+      - {x: 54, y: -204}
+      - {x: 59, y: -166}
+      - {x: 74, y: -124}
+      - {x: 83, y: -89.5}
+      - {x: 77, y: -59}
+      - {x: 96, y: -11}
+      - {x: 212, y: -18}
+      - {x: 235, y: 127}
+      - {x: 214, y: 199}
+      - {x: 48, y: 251}
+      - {x: -119.831955, y: 249.056}
+      - {x: -201, y: 219}
     bones: []
-    spriteID: 
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -147,7 +169,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      New Piskel (32)_0: 7942490628617887265
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
