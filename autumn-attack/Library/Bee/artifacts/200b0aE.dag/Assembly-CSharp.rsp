@@ -440,6 +440,7 @@
 -analyzer:"/Applications/Unity/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
 "Assets/autumnTree.cs"
 "Assets/CursorMove.cs"
+"Assets/DadMove.cs"
 "Assets/logic.cs"
 -langversion:9.0
 /deterministic

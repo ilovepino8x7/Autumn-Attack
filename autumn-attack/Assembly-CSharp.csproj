@@ -51,6 +51,7 @@
     <Compile Include="Assets/logic.cs" />
     <Compile Include="Assets/CursorMove.cs" />
     <Compile Include="Assets/autumnTree.cs" />
+    <Compile Include="Assets/DadMove.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

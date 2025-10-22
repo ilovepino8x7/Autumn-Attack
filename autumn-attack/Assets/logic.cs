@@ -24,6 +24,13 @@ public class logic : MonoBehaviour
     public Animator anim;
     private bool Ack;
     private bool Open = false;
+    public TMP_Text dadCost;
+    public int dCNum = 150;
+    public GameObject Dad;
+    private bool dadGot = false;
+    private bool shearsGot = false;
+    private bool doneSG = false;
+    private bool doneBW = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,10 +48,14 @@ public class logic : MonoBehaviour
     void Update()
     {
         clicktext.text = clicks.ToString() + " Clicks";
-        cpstext.text = cps.ToString() + " Clicks Per Second";
+        cpstext.text = cps.ToString("0.##") + " Clicks Per Second";
         leaftext.text = leaves.ToString() + " Leaves";
         mouseCost.text = mCNum.ToString();
-        CheckAchievements();
+        dadCost.text = dCNum.ToString();
+        if (!Open)
+        {
+            CheckAchievements();
+        }
         if (Ack)
         {
             anim.SetBool("Open", true);
@@ -70,8 +81,44 @@ public class logic : MonoBehaviour
             leaves -= mCNum;
             mCNum = (int)Math.Round(mCNum * 1.2);
             Instantiate(cursor, spawnPoint.transform.position, target);
+            if (achNum == 2)
+            {
+                achNum++;
+                shearsGot = true;
+            }
         }
         else return;
+    }
+    public void spawnDad()
+    {
+        if (leaves >= dCNum)
+        {
+            leaves -= dCNum;
+            dCNum = (int)Math.Round(dCNum * 1.5);
+            Instantiate(Dad, spawnPoint.transform.position, Quaternion.identity);
+            if (!dadGot)
+            {
+                AchTitle.text = "Papa's Here";
+                AchDesc.text = "Summon The Great LawnMower: Dad";
+                if (!Open)
+                {
+                    anim.enabled = true;
+                    StartCoroutine(OpenAchievement());
+                    dadGot = true;
+                    if (dadGot)
+                    {
+                        if (shearsGot)
+                        {
+                            achNum = 4;
+                        }
+                        else
+                        {
+                            achNum = 2;
+                        }
+                    }
+                }
+            }
+        }
     }
     public void CheckAchievements()
     {
@@ -83,7 +130,53 @@ public class logic : MonoBehaviour
             {
                 anim.enabled = true;
                 StartCoroutine(OpenAchievement());
+                achNum++;
             }
+        }
+        else if (clicks == 10 && achNum == 1)
+        {
+            AchTitle.text = "Leaf Plucker";
+            AchDesc.text = "Harvest 10 Leaves";
+            if (!Open)
+            {
+                anim.enabled = true;
+                StartCoroutine(OpenAchievement());
+                achNum++;
+
+            }
+        }
+        else if (achNum == 3)
+        {
+            AchTitle.text = "Rich Kid";
+            AchDesc.text = "Buy Shears to Pick Leaves for you";
+            if (!Open)
+            {
+                anim.enabled = true;
+                StartCoroutine(OpenAchievement());
+                achNum++;
+            }
+        }
+        else if (cps >= 1 && !doneSG)
+        {
+            AchTitle.text = "Speedy Gonzales";
+            AchDesc.text = "Zooming along at a whole click per second! How cute.";
+            if (!Open)
+            {
+                anim.enabled = true;
+                StartCoroutine(OpenAchievement());
+                doneSG = true;
+            }
+        }
+        else if (cps >= 10 && !doneBW)
+        {
+            AchTitle.text = "Billy Whizz";
+            AchDesc.text = "So fast you can't even see it!";
+            if (!Open)
+            {
+                anim.enabled = true;
+                StartCoroutine(OpenAchievement());
+                doneBW = true;
+            } 
         }
     }
     public IEnumerator OpenAchievement()
@@ -92,7 +185,7 @@ public class logic : MonoBehaviour
         Open = true;
         yield return new WaitForSeconds(2);
         Ack = false;
-        achNum = 1;
+        Open = false;
         anim.SetBool("Open", false);
     }
 }
