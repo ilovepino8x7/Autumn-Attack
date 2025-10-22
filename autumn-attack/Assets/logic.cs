@@ -48,7 +48,7 @@ public class logic : MonoBehaviour
     void Update()
     {
         clicktext.text = clicks.ToString() + " Clicks";
-        cpstext.text = cps.ToString("0.##") + " Clicks Per Second";
+        cpstext.text = Math.Round(cps,2).ToString() + " Clicks Per Second";
         leaftext.text = leaves.ToString() + " Leaves";
         mouseCost.text = mCNum.ToString();
         dadCost.text = dCNum.ToString();
@@ -167,7 +167,7 @@ public class logic : MonoBehaviour
                 doneSG = true;
             }
         }
-        else if (cps >= 10 && !doneBW)
+        else if (Math.Round(cps,2) >= 10 && !doneBW)
         {
             AchTitle.text = "Billy Whizz";
             AchDesc.text = "So fast you can't even see it!";
