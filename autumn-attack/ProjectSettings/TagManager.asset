@@ -10,6 +10,9 @@ TagManager:
   - clicks
   - cps
   - leaves
+  - title
+  - body
+  - ack
   layers:
   - Default
   - TransparentFX

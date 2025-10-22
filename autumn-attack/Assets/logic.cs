@@ -3,6 +3,7 @@ using TMPro;
 using UnityEditor.Rendering;
 using Unity.Mathematics;
 using System;
+using System.Collections;
 
 public class logic : MonoBehaviour
 {
@@ -17,6 +18,12 @@ public class logic : MonoBehaviour
     public TMP_Text leaftext;
     public TMP_Text mouseCost;
     private int mCNum = 25;
+    private int achNum = 0;
+    public TMP_Text AchTitle;
+    public TMP_Text AchDesc;
+    public Animator anim;
+    private bool Ack;
+    private bool Open = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +33,8 @@ public class logic : MonoBehaviour
         cpstext = GameObject.FindWithTag("cps").GetComponent<TMP_Text>();
         leaftext = GameObject.FindWithTag("leaves").GetComponent<TMP_Text>();
         mouseCost.text = 25.ToString();
+        anim = GameObject.FindWithTag("ack").GetComponent<Animator>();
+        anim.enabled = false;
     }
 
     // Update is called once per frame
@@ -35,6 +44,15 @@ public class logic : MonoBehaviour
         cpstext.text = cps.ToString() + " Clicks Per Second";
         leaftext.text = leaves.ToString() + " Leaves";
         mouseCost.text = mCNum.ToString();
+        CheckAchievements();
+        if (Ack)
+        {
+            anim.SetBool("Open", true);
+        }
+        else
+        {
+            anim.SetBool("Open", false);
+        }
     }
     public void addClicks(int value)
     {
@@ -54,5 +72,27 @@ public class logic : MonoBehaviour
             Instantiate(cursor, spawnPoint.transform.position, target);
         }
         else return;
+    }
+    public void CheckAchievements()
+    {
+        if (clicks == 1 && achNum == 0)
+        {
+            AchTitle.text = "Slow & Steady";
+            AchDesc.text = "Harvest 1 Leaf";
+            if (!Open)
+            {
+                anim.enabled = true;
+                StartCoroutine(OpenAchievement());
+            }
+        }
+    }
+    public IEnumerator OpenAchievement()
+    {
+        Ack = true;
+        Open = true;
+        yield return new WaitForSeconds(2);
+        Ack = false;
+        achNum = 1;
+        anim.SetBool("Open", false);
     }
 }
