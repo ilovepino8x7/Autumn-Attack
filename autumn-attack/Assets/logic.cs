@@ -13,6 +13,7 @@ public class logic : MonoBehaviour
     public GameObject spawnPoint;
     public GameObject cursor;
     public GameObject tree;
+    public autumnTree at;
     public TMP_Text clicktext;
     public TMP_Text cpstext;
     public TMP_Text leaftext;
@@ -26,11 +27,16 @@ public class logic : MonoBehaviour
     private bool Open = false;
     public TMP_Text dadCost;
     public int dCNum = 150;
+    public int lBNum = 5000;
     public GameObject Dad;
     private bool dadGot = false;
     private bool shearsGot = false;
     private bool doneSG = false;
     private bool doneBW = false;
+    private bool doneLB = false;
+    public GameObject blower;
+    private bool doneLazy = false;
+    private bool doneLife = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,6 +48,7 @@ public class logic : MonoBehaviour
         mouseCost.text = 25.ToString();
         anim = GameObject.FindWithTag("ack").GetComponent<Animator>();
         anim.enabled = false;
+        at = tree.GetComponent<autumnTree>();
     }
 
     // Update is called once per frame
@@ -69,6 +76,7 @@ public class logic : MonoBehaviour
     {
         clicks += value;
         leaves += value;
+        at.spawnLeaf();
     }
     public void spawnCursor()
     {
@@ -120,6 +128,42 @@ public class logic : MonoBehaviour
             }
         }
     }
+    public void spawnBlower()
+    {
+        if (leaves >= lBNum)
+        {
+            Vector2 direction = (tree.transform.position - spawnPoint.transform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            angle -= 90;
+            Quaternion target = Quaternion.Euler(0, 0, angle);
+            leaves -= lBNum;
+            lBNum = (int)Math.Round(lBNum * 1.2);
+            Instantiate(blower, spawnPoint.transform.position, target);
+            if (!doneLB)
+            {
+                doneLB = true;
+                AchTitle.text = "Pass Wind";
+                AchDesc.text = "Buy a leafblower";
+                if (!Open)
+                {
+                    anim.enabled = true;
+                    StartCoroutine(OpenAchievement());
+                    if (doneLB)
+                    {
+                        if (shearsGot)
+                        {
+                            achNum = 4;
+                        }
+                        else
+                        {
+                            achNum = 2;
+                        }
+                    }
+                }
+            }
+        }
+        else return;
+    }
     public void CheckAchievements()
     {
         if (clicks == 1 && achNum == 0)
@@ -167,16 +211,38 @@ public class logic : MonoBehaviour
                 doneSG = true;
             }
         }
-        else if (Math.Round(cps,2) >= 10 && !doneBW)
+        else if (Math.Round(cps, 2) >= 10 && !doneBW)
         {
             AchTitle.text = "Billy Whizz";
-            AchDesc.text = "So fast you can't even see it!";
+            AchDesc.text = "Hit 10 CPS!";
             if (!Open)
             {
                 anim.enabled = true;
                 StartCoroutine(OpenAchievement());
                 doneBW = true;
-            } 
+            }
+        }
+        else if (Math.Round(cps, 2) >= 100 && !doneLazy)
+        {
+            AchTitle.text = "Lazy Bones";
+            AchDesc.text = "Don't even have to work anymore";
+            if (!Open)
+            {
+                anim.enabled = true;
+                StartCoroutine(OpenAchievement());
+                doneLazy = true;
+            }
+        }
+        else if (Math.Round(cps, 2) >= 1000 && !doneLife)
+        {
+            AchTitle.text = "Get a Life";
+            AchDesc.text = "You're either hacking or have no life  🥀";
+            if (!Open)
+            {
+                anim.enabled = true;
+                StartCoroutine(OpenAchievement());
+                doneLazy = true;
+            }
         }
     }
     public IEnumerator OpenAchievement()

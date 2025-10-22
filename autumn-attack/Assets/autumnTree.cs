@@ -4,6 +4,8 @@ public class autumnTree : MonoBehaviour
 {
     public logic ls;
     public int value = 1;
+    public GameObject[] leafSpawns;
+    public GameObject leaf;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,5 +20,9 @@ public class autumnTree : MonoBehaviour
     void OnMouseDown()
     {
         ls.addClicks(value);
+    }
+    public void spawnLeaf()
+    {
+        Instantiate(leaf, leafSpawns[Random.Range(0, 7)].transform.position, Quaternion.Euler(0, 0, Random.Range(-90, 90)));
     }
 }

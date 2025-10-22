@@ -441,6 +441,8 @@
 "Assets/autumnTree.cs"
 "Assets/CursorMove.cs"
 "Assets/DadMove.cs"
+"Assets/LeafBlowerMove.cs"
+"Assets/LeafMove.cs"
 "Assets/logic.cs"
 -langversion:9.0
 /deterministic
