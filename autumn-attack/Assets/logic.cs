@@ -4,6 +4,7 @@ using UnityEditor.Rendering;
 using Unity.Mathematics;
 using System;
 using System.Collections;
+using UnityEngine.UI;
 
 public class logic : MonoBehaviour
 {
@@ -37,6 +38,18 @@ public class logic : MonoBehaviour
     public GameObject blower;
     private bool doneLazy = false;
     private bool doneLife = false;
+    private int ShearUpPrice = 150;
+    public TMP_Text SUP;
+    public Button shearbut;
+    private int DadUpPrice = 650;
+    public Button DadBut;
+    public TMP_Text DUP;
+    private int BlowerUpPrice = 10000;
+    public TMP_Text BUP;
+    public Button BloBut;
+    public TMP_Text blowerCost;
+    private bool upgraded = false;
+    private bool upgradedach = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -54,6 +67,10 @@ public class logic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        blowerCost.text = lBNum.ToString();
+        BUP.text = ((int)(BlowerUpPrice / 1000)).ToString() + "K";
+        SUP.text = ShearUpPrice.ToString();
+        DUP.text = DadUpPrice.ToString();
         clicktext.text = clicks.ToString() + " Clicks";
         cpstext.text = Math.Round(cps,2).ToString() + " Clicks Per Second";
         leaftext.text = leaves.ToString() + " Leaves";
@@ -70,6 +87,34 @@ public class logic : MonoBehaviour
         else
         {
             anim.SetBool("Open", false);
+        }
+        if (leaves < ShearUpPrice)
+        {
+            shearbut.interactable = false;
+        }
+        else if (shearsGot && leaves >= ShearUpPrice)
+        {
+            shearbut.interactable = true;
+        }
+        if (leaves < DadUpPrice)
+        {
+            DadBut.interactable = false;
+        }
+        else if (dadGot && leaves >= DadUpPrice)
+        {
+            DadBut.interactable = true;
+        }
+        if (leaves < BlowerUpPrice)
+        {
+            BloBut.interactable = false;
+        }
+        else if (leaves >= BlowerUpPrice && doneLB)
+        {
+            BloBut.interactable = true;
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            leaves += 10000;
         }
     }
     public void addClicks(int value)
@@ -236,12 +281,23 @@ public class logic : MonoBehaviour
         else if (Math.Round(cps, 2) >= 1000 && !doneLife)
         {
             AchTitle.text = "Get a Life";
-            AchDesc.text = "You're either hacking or have no life  🥀";
+            AchDesc.text = "You're either hacking or have no life \U0001F940";
             if (!Open)
             {
                 anim.enabled = true;
                 StartCoroutine(OpenAchievement());
-                doneLazy = true;
+                doneLife = true;
+            }
+        }
+        else if (upgraded && !upgradedach)
+        {
+            AchTitle.text = "UPGRADE. UPGRADE";
+            AchDesc.text = "You made the cybermen happy by UPGRADING";
+            if (!Open)
+            {
+                anim.enabled = true;
+                StartCoroutine(OpenAchievement());
+                upgradedach = true;
             }
         }
     }
@@ -253,5 +309,35 @@ public class logic : MonoBehaviour
         Ack = false;
         Open = false;
         anim.SetBool("Open", false);
+    }
+    public void UpgradeShears()
+    {
+        if (leaves >= ShearUpPrice)
+        {
+            GameObject.FindGameObjectWithTag("cursor").GetComponent<CursorMove>().Upgrade();
+            leaves -= ShearUpPrice;
+            ShearUpPrice = (int)Math.Round(ShearUpPrice * 1.2);
+            upgraded = true;
+        }
+    }
+    public void UpgradePapa()
+    {
+        if (leaves >= DadUpPrice)
+        {
+            GameObject.FindWithTag("dad").GetComponent<DadMove>().Upgrade();
+            leaves -= DadUpPrice;
+            DadUpPrice = (int)Math.Round(DadUpPrice * 1.2);
+            upgraded = true;
+        }
+    }
+    public void UpgradeBlower()
+    {
+        if (leaves >= BlowerUpPrice)
+        {
+            GameObject.FindWithTag("wind").GetComponent<LeafBlowerMove>().Upgrade();
+            leaves -= BlowerUpPrice;
+            BlowerUpPrice = (int)Math.Round(BlowerUpPrice * 1.2);
+            upgraded = true;
+        }
     }
 }

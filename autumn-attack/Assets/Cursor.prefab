@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 570477168305758358}
   m_Layer: 0
   m_Name: Cursor
-  m_TagString: Untagged
+  m_TagString: cursor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,3 +117,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   tree: {fileID: 0}
+  ls: {fileID: 0}
+  timer: 5
+  spawnTime: 5
+  values: 0100000003000000050000000a00000019000000

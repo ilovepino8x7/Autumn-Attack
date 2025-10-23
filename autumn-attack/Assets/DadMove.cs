@@ -9,7 +9,8 @@ public class DadMove : MonoBehaviour
     public logic ls;
     public float timer = 2.5f;
     public float spawnTime = 2.5f;
-    private int value = 5;
+    private int value = 0;
+    private int[] values = { 5, 10, 25, 40, 70, 110, 200, 500, 1000, 2500, 10000000, 0, 0, 0, 0, 0, 0, 0, 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 };
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,7 +19,7 @@ public class DadMove : MonoBehaviour
         System.Array.Sort(unordered, (GameObject a, GameObject b) => GrabNum(a.name).CompareTo(GrabNum(b.name)));
         path = unordered;
         ls = GameObject.FindWithTag("logos").GetComponent<logic>();
-        ls.cps += (float)value / (float)spawnTime;
+        ls.cps += (float)values[value] / (float)spawnTime;
     }
 
     // Update is called once per frame
@@ -33,12 +34,12 @@ public class DadMove : MonoBehaviour
             pathnum = 0;
         }
         moveToNext(pathnum);
-        
+
         if (timer >= spawnTime)
         {
             timer = 0;
             // add upgrades adn a function to increase the value
-            ls.addClicks(value);
+            ls.addClicks(values[value]);
         }
         else
         {
@@ -66,5 +67,11 @@ public class DadMove : MonoBehaviour
         return int.MaxValue;
     }
 
+    public void Upgrade()
+    {
+        value++;
+        ls.cps -= values[value - 1];
+        ls.cps += values[value];
+    }
 
 }

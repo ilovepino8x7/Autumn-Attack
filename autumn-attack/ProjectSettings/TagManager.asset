@@ -13,6 +13,8 @@ TagManager:
   - title
   - body
   - ack
+  - cursor
+  - dad
   layers:
   - Default
   - TransparentFX
