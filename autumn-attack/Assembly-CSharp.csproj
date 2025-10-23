@@ -50,7 +50,9 @@
   <ItemGroup>
     <Compile Include="Assets/logic.cs" />
     <Compile Include="Assets/CursorMove.cs" />
+    <Compile Include="Assets/prestigeManager.cs" />
     <Compile Include="Assets/LeafBlowerMove.cs" />
+    <Compile Include="Assets/BSL.cs" />
     <Compile Include="Assets/LeafMove.cs" />
     <Compile Include="Assets/autumnTree.cs" />
     <Compile Include="Assets/DadMove.cs" />

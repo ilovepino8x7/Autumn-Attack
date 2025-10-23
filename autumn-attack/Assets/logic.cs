@@ -50,9 +50,11 @@ public class logic : MonoBehaviour
     public TMP_Text blowerCost;
     private bool upgraded = false;
     private bool upgradedach = false;
+    public GameObject presto;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        presto.SetActive(false);
         spawnPoint = GameObject.Find("Circle");
         tree = GameObject.Find("Tree");
         clicktext = GameObject.FindWithTag("clicks").GetComponent<TMP_Text>();
@@ -62,6 +64,7 @@ public class logic : MonoBehaviour
         anim = GameObject.FindWithTag("ack").GetComponent<Animator>();
         anim.enabled = false;
         at = tree.GetComponent<autumnTree>();
+        checkPrestige();
     }
 
     // Update is called once per frame
@@ -111,10 +114,6 @@ public class logic : MonoBehaviour
         else if (leaves >= BlowerUpPrice && doneLB)
         {
             BloBut.interactable = true;
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            leaves += 10000;
         }
     }
     public void addClicks(int value)
@@ -312,32 +311,152 @@ public class logic : MonoBehaviour
     }
     public void UpgradeShears()
     {
-        if (leaves >= ShearUpPrice)
+        if (GameObject.FindGameObjectWithTag("cursor") != null)
         {
-            GameObject.FindGameObjectWithTag("cursor").GetComponent<CursorMove>().Upgrade();
-            leaves -= ShearUpPrice;
-            ShearUpPrice = (int)Math.Round(ShearUpPrice * 1.2);
-            upgraded = true;
+            if (leaves >= ShearUpPrice)
+            {
+                GameObject.FindGameObjectWithTag("cursor").GetComponent<CursorMove>().Upgrade();
+                leaves -= ShearUpPrice;
+                ShearUpPrice = (int)Math.Round(ShearUpPrice * 1.2);
+                upgraded = true;
+            }
         }
     }
     public void UpgradePapa()
     {
-        if (leaves >= DadUpPrice)
+        if (GameObject.FindWithTag("dad") != null)
         {
-            GameObject.FindWithTag("dad").GetComponent<DadMove>().Upgrade();
-            leaves -= DadUpPrice;
-            DadUpPrice = (int)Math.Round(DadUpPrice * 1.2);
-            upgraded = true;
+            if (leaves >= DadUpPrice)
+            {
+                GameObject.FindWithTag("dad").GetComponent<DadMove>().Upgrade();
+                leaves -= DadUpPrice;
+                DadUpPrice = (int)Math.Round(DadUpPrice * 1.2);
+                upgraded = true;
+            }
         }
     }
     public void UpgradeBlower()
     {
-        if (leaves >= BlowerUpPrice)
+        if (GameObject.FindWithTag("wind") != null)
         {
-            GameObject.FindWithTag("wind").GetComponent<LeafBlowerMove>().Upgrade();
-            leaves -= BlowerUpPrice;
-            BlowerUpPrice = (int)Math.Round(BlowerUpPrice * 1.2);
-            upgraded = true;
+            if (leaves >= BlowerUpPrice)
+            {
+                GameObject.FindWithTag("wind").GetComponent<LeafBlowerMove>().Upgrade();
+                leaves -= BlowerUpPrice;
+                BlowerUpPrice = (int)Math.Round(BlowerUpPrice * 1.2);
+                upgraded = true;
+            }
         }
+    }
+    private void checkPrestige()
+    {
+        if (prestigeManager.Instance.multiplier == 0)
+        {
+            return;
+        }
+        else if (prestigeManager.Instance.multiplier == 1)
+        {
+            doneBW = true;
+            doneLazy = true;
+            doneLB = true;
+            doneLife = false;
+            doneSG = true;
+            dadGot = true;
+            shearsGot = true;
+            upgraded = true;
+            upgradedach = true;
+            mCNum = 15;
+            dCNum = 100;
+            lBNum = 2500;
+            ShearUpPrice = 100;
+            DadUpPrice = 500;
+            BlowerUpPrice = 5000;
+        }
+        else if (prestigeManager.Instance.multiplier == 2)
+        {
+            doneBW = true;
+            doneLazy = true;
+            doneLB = true;
+            doneLife = false;
+            doneSG = true;
+            dadGot = true;
+            shearsGot = true;
+            upgraded = true;
+            upgradedach = true;
+            mCNum = 10;
+            dCNum = 60;
+            lBNum = 1500;
+            ShearUpPrice = 75;
+            DadUpPrice = 300;
+            BlowerUpPrice = 2500;
+        }
+        else if (prestigeManager.Instance.multiplier == 3)
+        {
+            doneBW = true;
+            doneLazy = true;
+            doneLB = true;
+            doneLife = false;
+            doneSG = true;
+            dadGot = true;
+            shearsGot = true;
+            upgraded = true;
+            upgradedach = true;
+            mCNum = 5;
+            dCNum = 40;
+            lBNum = 750;
+            ShearUpPrice = 50;
+            DadUpPrice = 150;
+            BlowerUpPrice = 1000;
+        }
+        else if (prestigeManager.Instance.multiplier == 4)
+        {
+            doneBW = true;
+            doneLazy = true;
+            doneLB = true;
+            doneLife = false;
+            doneSG = true;
+            dadGot = true;
+            shearsGot = true;
+            upgraded = true;
+            upgradedach = true;
+            mCNum = 1;
+            dCNum = 10;
+            lBNum = 200;
+            ShearUpPrice = 10;
+            DadUpPrice = 200;
+            BlowerUpPrice = 500;
+        }
+        else
+        {
+            doneBW = true;
+            doneLazy = true;
+            doneLB = true;
+            doneLife = false;
+            doneSG = true;
+            dadGot = true;
+            shearsGot = true;
+            upgraded = true;
+            upgradedach = true;
+            mCNum = 1;
+            dCNum = 1;
+            lBNum = 1;
+            ShearUpPrice = 1;
+            DadUpPrice = 1;
+            BlowerUpPrice = 1;
+        }
+    }
+
+    public void Prestige()
+    {
+        prestigeManager.Instance.Prestige();
+    }
+    public void confirmPrestige()
+    {
+        presto.SetActive(true);
+    }
+     
+    public int GetLeaves()
+    {
+        return leaves;
     }
 }
