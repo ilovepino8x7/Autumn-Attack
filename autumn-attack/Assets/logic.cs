@@ -51,6 +51,12 @@ public class logic : MonoBehaviour
     private bool upgraded = false;
     private bool upgradedach = false;
     public GameObject presto;
+    public int shearCount;
+    public int shearUpgrade;
+    public int dadUpgrade;
+    public int blowerUpgrade;
+    public int dadCount;
+    public int blowerCount;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -317,6 +323,7 @@ public class logic : MonoBehaviour
             {
                 GameObject.FindGameObjectWithTag("cursor").GetComponent<CursorMove>().Upgrade();
                 leaves -= ShearUpPrice;
+                shearUpgrade++;
                 ShearUpPrice = (int)Math.Round(ShearUpPrice * 1.2);
                 upgraded = true;
             }
@@ -330,6 +337,7 @@ public class logic : MonoBehaviour
             {
                 GameObject.FindWithTag("dad").GetComponent<DadMove>().Upgrade();
                 leaves -= DadUpPrice;
+                dadUpgrade++;
                 DadUpPrice = (int)Math.Round(DadUpPrice * 1.2);
                 upgraded = true;
             }
@@ -343,6 +351,7 @@ public class logic : MonoBehaviour
             {
                 GameObject.FindWithTag("wind").GetComponent<LeafBlowerMove>().Upgrade();
                 leaves -= BlowerUpPrice;
+                blowerUpgrade++;
                 BlowerUpPrice = (int)Math.Round(BlowerUpPrice * 1.2);
                 upgraded = true;
             }
@@ -454,9 +463,33 @@ public class logic : MonoBehaviour
     {
         presto.SetActive(true);
     }
-     
+
     public int GetLeaves()
     {
         return leaves;
+    }
+    public int GetMCNUM()
+    {
+        return mCNum;
+    }
+    public int GetDCNUM()
+    {
+        return dCNum;
+    }
+    public int GetlBNUM()
+    {
+        return lBNum;
+    }
+    public int GetShearUpPrice()
+    {
+        return ShearUpPrice;
+    }
+    public int GetDadUpPrice()
+    {
+        return DadUpPrice;
+    }
+    public int GetBlowerUpPrice()
+    {
+        return BlowerUpPrice;
     }
 }

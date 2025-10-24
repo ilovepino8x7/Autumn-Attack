@@ -19,6 +19,7 @@ public class CursorMove : MonoBehaviour
         System.Array.Sort(unordered, (GameObject a, GameObject b) => GrabNum(a.name).CompareTo(GrabNum(b.name)));
         path = unordered;
         ls = GameObject.FindWithTag("logos").GetComponent<logic>();
+        ls.shearCount += 1;
         ls.cps += (float)values[value] / (float)spawnTime;
     }
 

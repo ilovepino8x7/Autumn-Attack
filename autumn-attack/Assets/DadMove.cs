@@ -20,6 +20,7 @@ public class DadMove : MonoBehaviour
         path = unordered;
         ls = GameObject.FindWithTag("logos").GetComponent<logic>();
         ls.cps += (float)values[value] / (float)spawnTime;
+        ls.dadCount++;
     }
 
     // Update is called once per frame
