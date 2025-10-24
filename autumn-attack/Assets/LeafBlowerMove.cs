@@ -20,7 +20,10 @@ public class LeafBlowerMove : MonoBehaviour
         path = unordered;
         ls = GameObject.FindWithTag("logos").GetComponent<logic>();
         ls.cps += (float)values[value] / (float)spawnTime;
-        ls.blowerCount++;
+        if (transform.gameObject.tag != "freeb")
+        {
+            ls.blowerCount++;
+        }
     }
 
     // Update is called once per frame
@@ -74,9 +77,16 @@ public class LeafBlowerMove : MonoBehaviour
     }
     public void Upgrade()
     {
-        value++;
-        ls.cps -= values[value - 1];
-        ls.cps += values[value];
+        value += 1;
+        if (ls == null)
+        {
+            ls = GameObject.FindWithTag("logos").GetComponent<logic>();
+        }
+        if (ls != null)
+        {
+            ls.cps -= (float)values[value - 1] / (float)spawnTime;
+            ls.cps += (float)values[value] / (float)spawnTime;
+        }
     }
 
 

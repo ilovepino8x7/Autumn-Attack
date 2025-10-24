@@ -99,8 +99,6 @@ public class saveLoad : MonoBehaviour
             ls.setShearUpPrice(int.Parse(sections[6]));
             ls.setDadUpPrice(int.Parse(sections[7]));
             ls.setBlowerUpPrice(int.Parse(sections[8]));
-
-            // Implement the spawning and levels of the new shears, dads and blowers
             ls.shearCount = int.Parse(sections[9]);
             ls.shearUpgrade = int.Parse(sections[10]);
             ls.dadCount = int.Parse(sections[11]);
@@ -108,6 +106,7 @@ public class saveLoad : MonoBehaviour
             ls.blowerCount = int.Parse(sections[13]);
             ls.blowerUpgrade = int.Parse(sections[14]);
             prestigeManager.Instance.multiplier = int.Parse(sections[15]);
+            ls.SetLC();
         }
         catch (System.Exception e)
         {
@@ -120,32 +119,5 @@ public class saveLoad : MonoBehaviour
         DeCode();
         toggleMenu();
     }
-
-
-
-
-
-    /// Rules to make a code
-    // Start and End digit must be 7
-    // Then a ~ tilda (separate each item with a tilda)
-    // Then the number of clicks
-    // Leaves
-    // mCNum
-    // dCNum
-    // lBNum
-    // ShearUpPrice
-    // DadUpPrice
-    // BlowerUpPrice
-    // Number of shears
-    // Which upgrade they are on
-
-    // Number of Dads
-    // Which upgrade they are on
-    // Number of Blowers
-    // Which upgrade they are on
-
-    // Prestige multiplier
-    // ~ Tilda
-    /// End with 7
     
 }

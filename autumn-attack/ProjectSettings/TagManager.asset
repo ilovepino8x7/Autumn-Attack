@@ -19,6 +19,9 @@ TagManager:
   - pst
   - monero
   - presto
+  - freec
+  - freed
+  - freeb
   layers:
   - Default
   - TransparentFX

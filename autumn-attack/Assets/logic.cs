@@ -57,6 +57,11 @@ public class logic : MonoBehaviour
     public int blowerUpgrade;
     public int dadCount;
     public int blowerCount;
+    private bool LoadingFromCode;
+    private bool protect = true;
+    public GameObject Freec;
+    public GameObject Freed;
+    public GameObject Freeb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -76,6 +81,14 @@ public class logic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (LoadingFromCode == true && protect)
+        {
+            StartCoroutine(loadIdles(FreeCursor, shearCount));
+            StartCoroutine(loadIdles(FreeDad, dadCount));
+            StartCoroutine(loadIdles(FreeBlower, blowerCount));
+            protect = false;
+            LoadingFromCode = false;
+        }
         blowerCost.text = lBNum.ToString();
         BUP.text = ((int)(BlowerUpPrice / 1000)).ToString() + "K";
         SUP.text = ShearUpPrice.ToString();
@@ -146,6 +159,7 @@ public class logic : MonoBehaviour
             }
         }
         else return;
+        
     }
     public void spawnDad()
     {
@@ -212,7 +226,14 @@ public class logic : MonoBehaviour
                 }
             }
         }
-        else return;
+        else
+        {
+            Vector2 direction = (tree.transform.position - spawnPoint.transform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            angle -= 90;
+            Quaternion target = Quaternion.Euler(0, 0, angle);
+            Instantiate(blower, spawnPoint.transform.position, target);
+        }
     }
     public void CheckAchievements()
     {
@@ -520,4 +541,81 @@ public class logic : MonoBehaviour
     {
         BlowerUpPrice = input;
     }
+    public IEnumerator spawnOnDelay(Action spawn)
+    {
+        yield return new WaitForSeconds(0.5f);
+        spawn.Invoke();
+    }
+    private IEnumerator loadIdles(Action spawn, int typeNum)
+    {
+        for (int i = 0; i < typeNum; i++)
+        {
+            yield return StartCoroutine(spawnOnDelay(spawn));
+        }
+        if (spawn == FreeCursor)
+        {
+            loadUpgrades(FreeUpgradeShears, shearUpgrade);
+        }
+        else if (spawn == FreeDad)
+        {
+            loadUpgrades(FreeUpgradePapa, dadUpgrade);
+        }
+        else if (spawn == FreeBlower)
+        {
+            loadUpgrades(FreeUpgradeBlower, blowerUpgrade);
+        }
+    }
+    private void loadUpgrades(Action upgrade, int times)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            upgrade.Invoke();
+        }
+    }
+    public void SetLC()
+    {
+        LoadingFromCode = true;
+    }
+    public void FreeCursor()
+    {
+        Vector2 direction = (tree.transform.position - spawnPoint.transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle -= 90;
+        Quaternion target = Quaternion.Euler(0, 0, angle);
+        Instantiate(Freec, spawnPoint.transform.position, target);
+    }
+    public void FreeDad()
+    {
+        Instantiate(Freed, spawnPoint.transform.position, Quaternion.identity);
+    }
+    public void FreeBlower()
+    {
+        Vector2 direction = (tree.transform.position - spawnPoint.transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle -= 90;
+        Quaternion target = Quaternion.Euler(0, 0, angle);
+        Instantiate(Freeb, spawnPoint.transform.position, target);
+    }
+    public void FreeUpgradeShears()
+    {
+        if (GameObject.FindGameObjectWithTag("freec") != null)
+        {
+            GameObject.FindGameObjectWithTag("freec").GetComponent<CursorMove>().Upgrade();
+        }
+    }
+    public void FreeUpgradePapa()
+    {
+        if (GameObject.FindWithTag("freed") != null)
+        {
+            GameObject.FindWithTag("freed").GetComponent<DadMove>().Upgrade();
+        }
+    }
+    public void FreeUpgradeBlower()
+    {
+        if (GameObject.FindWithTag("freeb") != null)
+        {
+            GameObject.FindWithTag("freeb").GetComponent<LeafBlowerMove>().Upgrade();
+        }
+    }
 }
+

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CursorMove : MonoBehaviour
@@ -19,7 +20,10 @@ public class CursorMove : MonoBehaviour
         System.Array.Sort(unordered, (GameObject a, GameObject b) => GrabNum(a.name).CompareTo(GrabNum(b.name)));
         path = unordered;
         ls = GameObject.FindWithTag("logos").GetComponent<logic>();
-        ls.shearCount += 1;
+        if (transform.gameObject.tag != "freec")
+        {
+            ls.shearCount += 1;
+        }
         ls.cps += (float)values[value] / (float)spawnTime;
     }
 
@@ -75,8 +79,15 @@ public class CursorMove : MonoBehaviour
     public void Upgrade()
     {
         value += 1;
-        ls.cps -= values[value - 1];
-        ls.cps += values[value]; 
+        if (ls == null)
+        {
+            ls = GameObject.FindWithTag("logos").GetComponent<logic>();
+        }
+        if (ls != null)
+        {
+            ls.cps -= (float)values[value - 1] / (float)spawnTime;
+            ls.cps += (float)values[value] / (float)spawnTime;
+        }
     }
 
 

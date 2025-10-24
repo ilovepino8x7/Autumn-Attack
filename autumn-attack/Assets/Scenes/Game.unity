@@ -2917,7 +2917,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &881073883
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6118,6 +6118,9 @@ MonoBehaviour:
   blowerUpgrade: 0
   dadCount: 0
   blowerCount: 0
+  Freec: {fileID: 1437485310739708325, guid: 52e016e4f0124483b9e53dd30f8db8f5, type: 3}
+  Freed: {fileID: 1921093099654753384, guid: f0462b661555a4c3bba32b81199a5ba4, type: 3}
+  Freeb: {fileID: 1741431234895729584, guid: a96c2de1e6ff34555b6cc1c592ba57dc, type: 3}
 --- !u!4 &1433479318
 Transform:
   m_ObjectHideFlags: 0
