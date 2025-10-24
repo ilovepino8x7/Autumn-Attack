@@ -492,4 +492,32 @@ public class logic : MonoBehaviour
     {
         return BlowerUpPrice;
     }
+    public void setLeaves(int input)
+    {
+        leaves = input;
+    }
+    public void setMCNum(int input)
+    {
+        mCNum = input;
+    }
+    public void setDCNum(int input)
+    {
+        dCNum = input;
+    }
+    public void setLBNum(int input)
+    {
+        lBNum = input;
+    }
+    public void setShearUpPrice(int input)
+    {
+        ShearUpPrice = input;
+    }
+    public void setDadUpPrice(int input)
+    {
+        DadUpPrice = input;
+    }
+    public void setBlowerUpPrice(int input)
+    {
+        BlowerUpPrice = input;
+    }
 }
