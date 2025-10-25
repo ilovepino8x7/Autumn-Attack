@@ -9,6 +9,7 @@ https://ilovepino56.itch.io/autumn-attack
 
 ## Controls
 Left click to select or poke with your finger
+If resolution looks dodgy, zoom out with ctrl - or cmd -
 
 ## Credits
 <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Freepik - Flaticon</a> 
