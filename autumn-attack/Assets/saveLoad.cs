@@ -9,7 +9,7 @@ public class saveLoad : MonoBehaviour
     private string toDecode;
     public TMP_Text codetext;
     public GameObject menu;
-    private bool toggle = false;
+    public bool toggle = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

@@ -15,6 +15,7 @@ public class logic : MonoBehaviour
     public GameObject cursor;
     public GameObject tree;
     public autumnTree at;
+    public GameObject tut;
     public TMP_Text clicktext;
     public TMP_Text cpstext;
     public TMP_Text leaftext;
@@ -62,6 +63,8 @@ public class logic : MonoBehaviour
     public GameObject Freec;
     public GameObject Freed;
     public GameObject Freeb;
+    public bool doneTut = false;
+    public saveLoad sl;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -76,11 +79,18 @@ public class logic : MonoBehaviour
         anim.enabled = false;
         at = tree.GetComponent<autumnTree>();
         checkPrestige();
+        tut.SetActive(false);
+        sl = GetComponent<saveLoad>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (sl.toggle == false && !doneTut)
+        {
+            doneTut = true;
+            tut.SetActive(true);
+        }
         if (LoadingFromCode == true && protect)
         {
             StartCoroutine(loadIdles(FreeCursor, shearCount));
@@ -246,6 +256,7 @@ public class logic : MonoBehaviour
                 anim.enabled = true;
                 StartCoroutine(OpenAchievement());
                 achNum++;
+                tut.SetActive(false);
             }
         }
         else if (clicks == 10 && achNum == 1)
