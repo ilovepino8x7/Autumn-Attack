@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEditor.Rendering;
 using Unity.Mathematics;
 using System;
 using System.Collections;
