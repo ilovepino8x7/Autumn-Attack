@@ -4,6 +4,7 @@
 Autumn Attack is a clicker-style game themed around the season 'fall', where the aim is to harvest as many leaves from the orange autumn tree as possible, using leaves to buy upgrades to earn as many leaves as possible.
 
 ## Link to Play online
+Works best on PC or Mac, but can be played on mobile with a bit of cropping
 https://ilovepino56.itch.io/autumn-attack
 
 ## Controls
