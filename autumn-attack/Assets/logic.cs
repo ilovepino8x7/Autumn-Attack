@@ -65,6 +65,12 @@ public class logic : MonoBehaviour
     public GameObject Freeb;
     public bool doneTut = false;
     public saveLoad sl;
+    public AudioSource self;
+    public AudioClip crunch;
+    public AudioClip achDing;
+    public AudioClip click;
+    public AudioClip levelUp;
+    public AudioClip warning;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -81,6 +87,7 @@ public class logic : MonoBehaviour
         checkPrestige();
         tut.SetActive(false);
         sl = GetComponent<saveLoad>();
+        self = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -124,7 +131,7 @@ public class logic : MonoBehaviour
         {
             shearbut.interactable = false;
         }
-        else if (shearsGot && leaves >= ShearUpPrice)
+        else if (GameObject.FindGameObjectWithTag("cursor") != null && leaves >= ShearUpPrice)
         {
             shearbut.interactable = true;
         }
@@ -132,7 +139,7 @@ public class logic : MonoBehaviour
         {
             DadBut.interactable = false;
         }
-        else if (dadGot && leaves >= DadUpPrice)
+        else if (GameObject.FindGameObjectWithTag("dad") != null && leaves >= DadUpPrice)
         {
             DadBut.interactable = true;
         }
@@ -140,7 +147,7 @@ public class logic : MonoBehaviour
         {
             BloBut.interactable = false;
         }
-        else if (leaves >= BlowerUpPrice && doneLB)
+        else if (GameObject.FindGameObjectWithTag("wind") != null && leaves >= BlowerUpPrice)
         {
             BloBut.interactable = true;
         }
@@ -150,6 +157,8 @@ public class logic : MonoBehaviour
         clicks += value;
         leaves += value;
         at.spawnLeaf();
+        self.PlayOneShot(crunch);
+
     }
     public void spawnCursor()
     {
@@ -160,6 +169,7 @@ public class logic : MonoBehaviour
             angle -= 90;
             Quaternion target = Quaternion.Euler(0, 0, angle);
             leaves -= mCNum;
+            self.PlayOneShot(click);
             mCNum = (int)Math.Round(mCNum * 1.2);
             Instantiate(cursor, spawnPoint.transform.position, target);
             if (achNum == 2)
@@ -176,6 +186,7 @@ public class logic : MonoBehaviour
         if (leaves >= dCNum)
         {
             leaves -= dCNum;
+            self.PlayOneShot(click);
             dCNum = (int)Math.Round(dCNum * 1.5);
             Instantiate(Dad, spawnPoint.transform.position, Quaternion.identity);
             if (!dadGot)
@@ -211,6 +222,7 @@ public class logic : MonoBehaviour
             angle -= 90;
             Quaternion target = Quaternion.Euler(0, 0, angle);
             leaves -= lBNum;
+            self.PlayOneShot(click);
             lBNum = (int)Math.Round(lBNum * 1.2);
             Instantiate(blower, spawnPoint.transform.position, target);
             if (!doneLB)
@@ -342,6 +354,7 @@ public class logic : MonoBehaviour
     {
         Ack = true;
         Open = true;
+        self.PlayOneShot(achDing);
         yield return new WaitForSeconds(2);
         Ack = false;
         Open = false;
@@ -355,6 +368,7 @@ public class logic : MonoBehaviour
             {
                 GameObject.FindGameObjectWithTag("cursor").GetComponent<CursorMove>().Upgrade();
                 leaves -= ShearUpPrice;
+                self.PlayOneShot(levelUp);
                 shearUpgrade++;
                 ShearUpPrice = (int)Math.Round(ShearUpPrice * 1.2);
                 upgraded = true;
@@ -369,6 +383,7 @@ public class logic : MonoBehaviour
             {
                 GameObject.FindWithTag("dad").GetComponent<DadMove>().Upgrade();
                 leaves -= DadUpPrice;
+                self.PlayOneShot(levelUp);
                 dadUpgrade++;
                 DadUpPrice = (int)Math.Round(DadUpPrice * 1.2);
                 upgraded = true;
@@ -383,6 +398,7 @@ public class logic : MonoBehaviour
             {
                 GameObject.FindWithTag("wind").GetComponent<LeafBlowerMove>().Upgrade();
                 leaves -= BlowerUpPrice;
+                self.PlayOneShot(levelUp);
                 blowerUpgrade++;
                 BlowerUpPrice = (int)Math.Round(BlowerUpPrice * 1.2);
                 upgraded = true;
@@ -489,10 +505,12 @@ public class logic : MonoBehaviour
 
     public void Prestige()
     {
+        self.PlayOneShot(warning);
         prestigeManager.Instance.Prestige();
     }
     public void confirmPrestige()
     {
+        self.PlayOneShot(warning);
         presto.SetActive(true);
     }
 
