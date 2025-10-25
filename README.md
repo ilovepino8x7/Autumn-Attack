@@ -6,6 +6,7 @@ Autumn Attack is a clicker-style game themed around the season 'fall', where the
 ## Link to Play online
 Works best on PC or Mac, but can be played on mobile with a bit of cropping
 https://ilovepino56.itch.io/autumn-attack
+If you want save codes and loading from them to work, you need to build the game for pc or mac in Unity.
 
 ## Controls
 Left click to select or poke with your finger
